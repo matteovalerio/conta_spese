@@ -19,4 +19,12 @@ class AuthenticationImpl @Inject constructor(private val firebaseAuth: FirebaseA
         firebaseAuth.signOut()
     }
 
+    override fun resetPassword(email: String) {
+        firebaseAuth.sendPasswordResetEmail(email)
+    }
+
+    override fun signIn(email: String, password: String): Task<AuthResult> {
+        return firebaseAuth.createUserWithEmailAndPassword(email, password)
+    }
+
 }
