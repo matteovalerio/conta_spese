@@ -8,4 +8,6 @@ interface Authentication {
     fun isAuthenticated(): Boolean
     fun login(credential: LoginCredentialDto): Task<AuthResult>
     fun logout()
+    fun resetPassword(email: String)
+    fun signIn(email: String, password: String): Task<AuthResult>
 }

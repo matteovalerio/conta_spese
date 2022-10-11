@@ -22,10 +22,10 @@ class AuthViewModel @Inject constructor(private val authentication: Authenticati
     var errorMessage: MutableState<String> = mutableStateOf("")
         private set
 
-    var isLoginVisible: MutableState<Boolean> = mutableStateOf(true)
+    var currentPage: MutableState<AuthScreenName> = mutableStateOf(AuthScreenName.Login)
         private set
 
-    fun updateUsername(updatedValue: String) {
+    fun updateEmail(updatedValue: String) {
         email.value = updatedValue
     }
 
@@ -33,8 +33,8 @@ class AuthViewModel @Inject constructor(private val authentication: Authenticati
         password.value = updatedValue
     }
 
-    fun toggleViewVisibility() {
-        isLoginVisible.value = !isLoginVisible.value
+    fun setCurrentPage(page: AuthScreenName) {
+        currentPage.value = page
     }
 
     fun login() {
@@ -49,5 +49,22 @@ class AuthViewModel @Inject constructor(private val authentication: Authenticati
         } catch (exception: Exception) {
             errorMessage.value = exception.message.toString()
         }
+    }
+
+    fun resetPassword(email: String) {
+        authentication.resetPassword(email)
+    }
+
+    fun signIn() {
+        authentication.signIn(email.value, password.value)
+            .addOnSuccessListener {
+                setCurrentPage(AuthScreenName.Login)
+            }
+            .addOnFailureListener {
+                val message = it.message.toString()
+                if (message != errorMessage.value) {
+                    errorMessage.value = it.message.toString()
+                }
+            }
     }
 }
