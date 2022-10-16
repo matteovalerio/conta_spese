@@ -1,13 +1,14 @@
-package it.matteo.contaspese.data.repository.auth
+package it.matteo.firebaselogin.data.auth
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import it.matteo.contaspese.data.dtos.LoginCredentialDto
+import it.matteo.firebaselogin.data.dtos.LoginCredentialDto
+import it.matteo.firebaselogin.data.auth.AuthenticationRepository
 import javax.inject.Inject
 
-class AuthenticationImpl @Inject constructor(private val firebaseAuth: FirebaseAuth) :
-    Authentication {
+class AuthenticationRepositoryImpl @Inject constructor(private val firebaseAuth: FirebaseAuth) :
+    AuthenticationRepository {
 
     override fun isAuthenticated(): Boolean = firebaseAuth.currentUser != null
 

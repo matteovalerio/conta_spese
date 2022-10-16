@@ -20,7 +20,8 @@ fun EmailPasswordOrganism(
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onSubmit: () -> Unit,
-    isLogin: Boolean
+    isLogin: Boolean,
+    buttonEnabled: () -> Boolean
 ) {
     LabeledTextFieldMolecule(
         modifier = Modifier.padding(top = 30.dp),
@@ -58,6 +59,7 @@ fun EmailPasswordOrganism(
                 onSubmit()
             }
         },
+        enabled = buttonEnabled()
     ) {
         Text(
             text = if (!isLogin) {
