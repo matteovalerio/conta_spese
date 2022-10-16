@@ -1,10 +1,10 @@
-package it.matteo.contaspese.data.repository.auth
+package it.matteo.firebaselogin.data.auth
 
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
-import it.matteo.contaspese.data.dtos.LoginCredentialDto
+import it.matteo.firebaselogin.data.dtos.LoginCredentialDto
 
-interface Authentication {
+interface AuthenticationRepository {
     fun isAuthenticated(): Boolean
     fun login(credential: LoginCredentialDto): Task<AuthResult>
     fun logout()

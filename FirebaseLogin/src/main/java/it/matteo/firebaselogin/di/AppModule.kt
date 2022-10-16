@@ -1,4 +1,4 @@
-package it.matteo.contaspese.di
+package it.matteo.firebaselogin.di
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -9,9 +9,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import it.matteo.firebaselogin.data.auth.AuthenticationRepository
 import it.matteo.firebaselogin.data.auth.AuthenticationRepositoryImpl
-import org.checkerframework.checker.nullness.compatqual.PolyNullDecl
+import it.matteo.firebaselogin.data.user.UserRepository
+import it.matteo.firebaselogin.data.user.UserRepositoryImpl
+import it.matteo.firebaselogin.data.auth.AuthenticationRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -20,5 +21,11 @@ object AppModule {
     fun provideFirebaseAuth(): FirebaseAuth = Firebase.auth
 
     @Provides
+    fun provideAuthentication(): AuthenticationRepository = AuthenticationRepositoryImpl(Firebase.auth)
+
+    @Provides
     fun provideFirebaseFirestore(): FirebaseFirestore = Firebase.firestore
+
+    @Provides
+    fun provideUserRepository(): UserRepository = UserRepositoryImpl(Firebase.firestore)
 }

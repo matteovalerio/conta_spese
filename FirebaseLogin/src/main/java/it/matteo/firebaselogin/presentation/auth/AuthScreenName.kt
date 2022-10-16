@@ -1,4 +1,4 @@
-package it.matteo.contaspese.presentation.auth
+package it.matteo.firebaselogin.presentation.auth
 
 enum class AuthScreenName {
     Login,

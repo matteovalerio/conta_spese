@@ -11,18 +11,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import it.matteo.contaspese.presentation.auth.AuthScreenName
 import it.matteo.contaspese.presentation.components.organism.EmailPasswordOrganism
 
-@ExperimentalComposeUiApi
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SignInTemplate(
+fun LoginTemplate(
     email: String,
     password: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
     onSubmit: () -> Unit,
-    onClickTextButton: () -> Unit
+    onClickForgotPassword: () -> Unit,
+    onClickSignIn: () -> Unit
 ) {
     EmailPasswordOrganism(
         email = email,
@@ -30,16 +30,20 @@ fun SignInTemplate(
         onEmailChange = onEmailChange,
         onPasswordChange = onPasswordChange,
         onSubmit = onSubmit,
-        isLogin = false
+        isLogin = true,
+        buttonEnabled = { email.isNotEmpty() && password.isNotEmpty() }
     )
+    TextButton(onClick = onClickForgotPassword) {
+        Text(text = "Forgot Password?")
+    }
     Divider(modifier = Modifier.padding(top = 30.dp))
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Already an user?")
-        TextButton(onClick = onClickTextButton) {
-            Text(text = "Login")
+        Text(text = "Need an account?")
+        TextButton(onClick = onClickSignIn) {
+            Text(text = "Sign-in")
         }
     }
 }

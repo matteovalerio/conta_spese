@@ -11,38 +11,48 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import it.matteo.contaspese.presentation.components.molecule.LabeledTextFieldMolecule
 import it.matteo.contaspese.presentation.components.organism.EmailPasswordOrganism
 
-@OptIn(ExperimentalComposeUiApi::class)
+@ExperimentalComposeUiApi
 @Composable
-fun LoginTemplate(
+fun SignInTemplate(
     email: String,
     password: String,
+    name: String,
     onEmailChange: (String) -> Unit,
     onPasswordChange: (String) -> Unit,
+    onNameChange: (String) -> Unit,
     onSubmit: () -> Unit,
-    onClickForgotPassword: () -> Unit,
-    onClickSignIn: () -> Unit
+    onClickTextButton: () -> Unit
 ) {
+    LabeledTextFieldMolecule(
+        modifier = Modifier.padding(top = 30.dp),
+        label = "Name",
+        textFieldContent = name,
+        onValueChange = onNameChange,
+        placeholder = "Name"
+    )
     EmailPasswordOrganism(
         email = email,
         password = password,
         onEmailChange = onEmailChange,
         onPasswordChange = onPasswordChange,
-        onSubmit = onSubmit,
-        isLogin = true
+        onSubmit = {
+            if (name.isNotEmpty())
+                onSubmit()
+        },
+        isLogin = false,
+        buttonEnabled = { email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() }
     )
-    TextButton(onClick = onClickForgotPassword) {
-        Text(text = "Forgot Password?")
-    }
     Divider(modifier = Modifier.padding(top = 30.dp))
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Text(text = "Need an account?")
-        TextButton(onClick = onClickSignIn) {
-            Text(text = "Sign-in")
+        Text(text = "Already an user?")
+        TextButton(onClick = onClickTextButton) {
+            Text(text = "Login")
         }
     }
 }
