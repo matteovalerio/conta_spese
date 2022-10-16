@@ -1,7 +1,6 @@
 package it.matteo.contaspese
 
 import android.os.Bundle
-import android.window.SplashScreen
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,11 +13,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import it.matteo.contaspese.presentation.Screens
-import it.matteo.contaspese.presentation.auth.AuthScreen
 import it.matteo.contaspese.presentation.home.HomeScreen
 import it.matteo.contaspese.presentation.splash.SplashScreen
 import it.matteo.contaspese.ui.theme.ContaSpeseTheme
-import kotlin.text.Typography.dagger
+import it.matteo.firebaselogin.presentation.auth.AuthScreen
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -40,9 +38,9 @@ fun ContaSpeseApp() {
             color = MaterialTheme.colors.background
         ) {
             NavHost(navController = navHostController, startDestination = Screens.Splash.name) {
-                composable(Screens.Home.name) { HomeScreen() }
+                composable(Screens.Home.name) { HomeScreen(navHostController) }
                 composable(Screens.Splash.name) { SplashScreen(navHostController) }
-                composable(Screens.Auth.name) { AuthScreen(navHostController) }
+                composable(Screens.Auth.name) { AuthScreen({navHostController.navigate(Screens.Home.name)}) }
             }
         }
     }
