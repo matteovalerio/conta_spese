@@ -9,12 +9,16 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+
 import it.matteo.data.auth.AuthenticationRepository
 import it.matteo.data.auth.AuthenticationRepositoryImpl
+import org.checkerframework.checker.nullness.compatqual.PolyNullDecl
+
 
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
     fun provideAuthenticationRepository(): AuthenticationRepository = AuthenticationRepositoryImpl(Firebase.auth)
+
 }
