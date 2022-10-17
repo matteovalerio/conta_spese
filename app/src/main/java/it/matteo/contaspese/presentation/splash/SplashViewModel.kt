@@ -2,7 +2,7 @@ package it.matteo.contaspese.presentation.splash
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import it.matteo.firebaselogin.data.auth.AuthenticationRepository
+import it.matteo.data.auth.AuthenticationRepository
 import javax.inject.Inject
 
 @HiltViewModel
